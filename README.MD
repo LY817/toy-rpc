@@ -24,6 +24,10 @@
 ## `rpc-registry` 服务注册发现
 
 ## `rpc-protocol` 通信协议
+### 协议规范
+消息头
+
 ### 对象序列化
+二进制转对象
 - HESSIAN
 - JSON
