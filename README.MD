@@ -2,6 +2,8 @@
 模仿dubbo的架构 写一个简易的rpc框架
 默认接入springboot
 
+<iframe id="embed_dom" name="embed_dom" frameborder="0" style="display:block;width:525px; height:245px;" src="https://www.processon.com/embed/5ec0d9e5e401fd16f43fb970"></iframe>
+
 # 功能模块
 ## `rpc-core` 通用功能
 被其他模块引用
@@ -16,16 +18,51 @@
   - 同步调用 调用后阻塞直到返回
   - 异步调用 返回一个future对象
 
+## `rpc-registry` 服务注册发现
+被`rpc-provider`和`rpc-consumer`引用
+
+封装与注册中心的交互，定义操作注册中心的api
+### `RegistryService` 服务提供者注册服务
+
+### `ServiceLoadBalancer` 服务消费者获取服务地址
+
+
 
 ## `rpc-provider` 服务提供者实现
+- 提供网络服务
+- 注册服务到注册中心、维护服务
+- 代理调用：将网络请求转换为本地的方法调用
 
 ## `rpc-consumer` 服务消费者实现
+- 启动客户端网络服务
+- 与注册中心交互 获取并维护服务列表
+- 代理实现：将方法调用转换成网络请求
 
-## `rpc-registry` 服务注册发现
+
 
 ## `rpc-protocol` 通信协议
 ### 协议规范
-消息头
+tcp传输用的协议的**消息头定义**
+定义网络交互的元信息
+```
++---------------------------------------------------------------+
+| 魔数 2byte | 协议版本号 1byte | 序列化算法 1byte | 报文类型 1byte  |
++---------------------------------------------------------------+
+| 状态 1byte |        消息 ID 8byte     |      数据长度 4byte     |
++---------------------------------------------------------------+
+```
+- 魔数 2byte
+
+- 协议版本号 1byte
+
+- 序列化算法 1byte
+
+- 报文类型 1byte
+  请求还是响应
+- 状态 1byte
+- 消息 ID 8byte
+- 数据长度 4byte
+  payload数据长度
 
 ### 对象序列化
 二进制转对象
