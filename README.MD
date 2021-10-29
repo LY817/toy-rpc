@@ -2,7 +2,7 @@
 模仿dubbo的架构 写一个简易的rpc框架
 默认接入springboot
 
-<iframe id="embed_dom" name="embed_dom" frameborder="0" style="display:block;width:525px; height:245px;" src="https://www.processon.com/embed/5ec0d9e5e401fd16f43fb970"></iframe>
+https://www.processon.com/embed/5ec0d9e5e401fd16f43fb970
 
 # 功能模块
 ## `rpc-core` 通用功能
@@ -23,9 +23,13 @@
 
 封装与注册中心的交互，定义操作注册中心的api
 ### `RegistryService` 服务提供者注册服务
+- 注册服务实例 register
+- 注销服务实例 unRegister
+
+
 
 ### `ServiceLoadBalancer` 服务消费者获取服务地址
-
+- 获取调用模板服务实例 select
 
 
 ## `rpc-provider` 服务提供者实现
@@ -52,16 +56,27 @@ tcp传输用的协议的**消息头定义**
 +---------------------------------------------------------------+
 ```
 - 魔数 2byte
+  LYNB
 
-- 协议版本号 1byte
+- 协议版本号 1byte 16进制数 
 
-- 序列化算法 1byte
 
-- 报文类型 1byte
-  请求还是响应
-- 状态 1byte
-- 消息 ID 8byte
-- 数据长度 4byte
+- 序列化算法 1byte 16进制数
+  - 字符串JSON
+  - HESSIAN
+
+- 报文类型 1byte 16进制数
+  - 请求
+  - 响应
+  - 心跳
+- 状态 1byte 16进制数
+  - 成功
+  - 失败
+  
+- 消息 ID 8byte long
+  
+  
+- 数据长度 4byte int
   payload数据长度
 
 ### 对象序列化
