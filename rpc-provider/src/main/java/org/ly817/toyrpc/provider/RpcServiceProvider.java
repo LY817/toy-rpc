@@ -2,9 +2,12 @@ package org.ly817.toyrpc.provider;
 
 import lombok.extern.slf4j.Slf4j;
 import org.ly817.toyrpc.common.annotation.RpcService;
+import org.ly817.toyrpc.registry.RegistryService;
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.config.BeanPostProcessor;
+
+import java.net.InetAddress;
 
 /**
  * @author LY
@@ -21,16 +24,18 @@ public class RpcServiceProvider implements InitializingBean, BeanPostProcessor {
      *
      * todo 获取当前实例适当网卡的端口实现
      */
-    private final String serverAddress;
+    private String serverAddress;
 
     /**
      * 服务端口
      */
     private final int serverPort;
 
-    public RpcServiceProvider(String serverAddress, int serverPort) {
-        this.serverAddress = serverAddress;
+    private final RegistryService serviceRegistry;
+
+    public RpcServiceProvider(int serverPort,RegistryService serviceRegistry) {
         this.serverPort = serverPort;
+        this.serviceRegistry = serviceRegistry;
     }
 
     /**
@@ -39,7 +44,8 @@ public class RpcServiceProvider implements InitializingBean, BeanPostProcessor {
      */
     @Override
     public void afterPropertiesSet() throws Exception {
-
+        this.serverAddress = InetAddress.getLocalHost().getHostAddress();
+        log.info("test");
     }
 
     /**

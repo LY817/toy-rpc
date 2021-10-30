@@ -11,5 +11,15 @@
 
     <artifactId>rpc-registry</artifactId>
 
+    <dependencies>
+        <dependency>
+            <groupId>org.ly817</groupId>
+            <artifactId>rpc-registry</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.ly817</groupId>
+            <artifactId>rpc-core</artifactId>
+        </dependency>
+    </dependencies>
 
 </project>

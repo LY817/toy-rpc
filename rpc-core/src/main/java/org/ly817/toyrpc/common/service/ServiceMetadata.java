@@ -7,6 +7,9 @@ import lombok.Data;
  * @date 2021/10/24 20:57
  * <p>
  * Description:
+ * 暴露服务的元数据
+ * - provider服务注册
+ * - consumer服务调用
  */
 @Data
 public class ServiceMetadata {

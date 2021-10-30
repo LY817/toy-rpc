@@ -1,0 +1,4 @@
+toy-rpc:
+  service-port: 8888
+  registry-addr: localhost
+  registry-type: redis
