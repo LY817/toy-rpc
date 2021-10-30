@@ -31,6 +31,9 @@ public class RpcServiceProvider implements InitializingBean, BeanPostProcessor {
      */
     private final int serverPort;
 
+    /**
+     * 服务注册实现
+     */
     private final RegistryService serviceRegistry;
 
     public RpcServiceProvider(int serverPort,RegistryService serviceRegistry) {
