@@ -1,6 +1,8 @@
 package org.ly817.toyrpc.registry.impl;
 
+import org.ly817.toyrpc.common.config.RpcProperties;
 import org.ly817.toyrpc.common.service.ServiceMetadata;
+import org.ly817.toyrpc.registry.RegistryLocalCache;
 import org.ly817.toyrpc.registry.RegistryService;
 
 import java.io.IOException;
@@ -15,8 +17,18 @@ import java.io.IOException;
  *
  */
 public class DirectRegistryService implements RegistryService {
+
+    RegistryLocalCache registryLocalCache;
+
+    RpcProperties rpcProperties;
+
+    public DirectRegistryService(RpcProperties rpcProperties) {
+        this.rpcProperties = rpcProperties;
+        init();
+    }
+
     /**
-     * 注册服务
+     * 注册服务到注册中心
      *
      * @param serviceMeta
      * @throws Exception
@@ -27,7 +39,7 @@ public class DirectRegistryService implements RegistryService {
     }
 
     /**
-     * 注销服务
+     * 从注册中心注销服务
      *
      * @param serviceMeta
      * @throws Exception
@@ -39,7 +51,6 @@ public class DirectRegistryService implements RegistryService {
 
     /**
      * 获取服务实例
-     * 从springboot配置中读取注册表
      *
      * @param serviceName
      * @param invokerHashCode
@@ -48,7 +59,8 @@ public class DirectRegistryService implements RegistryService {
      */
     @Override
     public ServiceMetadata discovery(String serviceName, int invokerHashCode) throws Exception {
-        return null;
+        // todo 负载均衡策略
+        return registryLocalCache.get(serviceName,invokerHashCode);
     }
 
     @Override
@@ -64,10 +76,13 @@ public class DirectRegistryService implements RegistryService {
     /**
      * 初始化
      * 从注册中心拉取数据到本地缓存 RegistryLocalCache
-     * 启动维护（定时刷新）本地缓存的轮训任务
+     * todo 启动维护（定时刷新）本地缓存的轮训任务
+     * - 客户端/服务端：发心跳到各个服务 来确保服务都是在线状态 避免调用到有问题的服务上
+     * - 客户端：定时拉取注册中心服务列表
      */
     @Override
     public void init() {
-
+        // 将配置中读到的固定服务配置复制到本地的缓存中
+        registryLocalCache = new RegistryLocalCache(rpcProperties.getServices());
     }
 }

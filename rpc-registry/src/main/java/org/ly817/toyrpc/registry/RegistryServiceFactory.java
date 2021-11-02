@@ -38,7 +38,7 @@ public class RegistryServiceFactory {
 
                             break;
                         case DIRECT:
-                            registryService = new DirectRegistryService();
+                            registryService = new DirectRegistryService(rpcProperties);
                             break;
                     }
                 }

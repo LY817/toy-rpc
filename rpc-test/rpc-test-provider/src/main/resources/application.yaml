@@ -1,8 +1,8 @@
 toy-rpc:
   service-port: 8888
   registry-addr: localhost
-  registry-type: redis
-  service:
+  registry-type: DIRECT
+  services:
     hello:
       - service-name: hello-01
         service-version: 1.0

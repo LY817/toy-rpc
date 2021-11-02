@@ -47,7 +47,6 @@ public class RpcServiceProvider implements InitializingBean, BeanPostProcessor {
     @Override
     public void afterPropertiesSet() throws Exception {
         this.serverAddress = InetAddress.getLocalHost().getHostAddress();
-        log.info("test");
         startRpcServer();
     }
 

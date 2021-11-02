@@ -7,6 +7,7 @@ import java.io.IOException;
 
 /**
  * 注册中心操作接口
+ * 服务端和客户端功能都放在同一个类中
  * @author LuoYu
  * @date 2021-10-30
  *
