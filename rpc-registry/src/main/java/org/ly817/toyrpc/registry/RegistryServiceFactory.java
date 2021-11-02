@@ -1,5 +1,6 @@
 package org.ly817.toyrpc.registry;
 
+import org.ly817.toyrpc.common.config.RpcProperties;
 import org.ly817.toyrpc.registry.impl.DirectRegistryService;
 
 /**
@@ -16,12 +17,17 @@ public class RegistryServiceFactory {
 
     private static volatile RegistryService registryService;
 
-    public static RegistryService getInstance(String registryAddr, RegistryType type) throws Exception {
-
+    /**
+     *
+     * @param rpcProperties
+     * @return
+     * @throws Exception
+     */
+    public static RegistryService getInstance(RpcProperties rpcProperties) {
         if (null == registryService) {
             synchronized (RegistryServiceFactory.class) {
                 if (null == registryService) {
-                    switch (type) {
+                    switch (RegistryType.valueOf(rpcProperties.getRegistryType())) {
                         case ZOOKEEPER:
 
                             break;

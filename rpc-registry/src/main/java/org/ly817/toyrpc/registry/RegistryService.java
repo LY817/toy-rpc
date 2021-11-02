@@ -15,7 +15,7 @@ import java.io.IOException;
  * 根据不同的实现共享注册中心的内存实现服务注册和发现
  * 数据流向
  * 服务提供者 -> 注册中心 -> 本地缓存
- * 本地缓存要使用线程池来维护
+ * 本地缓存要使用线程池轮询来维护
  * @see RegistryLocalCache
  *
  * - direct 直连
@@ -57,7 +57,10 @@ public interface RegistryService {
 
     String registryType();
 
-    default void init() {
-
-    }
+    /**
+     * 初始化
+     * 从注册中心拉取数据到本地缓存 RegistryLocalCache
+     * 启动维护（定时刷新）本地缓存的轮训任务
+     */
+    void init();
 }

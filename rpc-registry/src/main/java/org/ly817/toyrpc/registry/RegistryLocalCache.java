@@ -11,7 +11,7 @@ import java.util.concurrent.ConcurrentHashMap;
  * <p>
  * Description:
  * 定时拉取服务
- * List<ServiceMetadata>的排序可以做点文章
+ * 负载均衡List<ServiceMetadata>的排序可以做点文章
  *
  * 暂时用一个本地map代替
  */

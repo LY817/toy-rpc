@@ -1,6 +1,7 @@
 package org.ly817.toyrpc.provider;
 
 import org.ly817.toyrpc.common.config.RpcProperties;
+import org.ly817.toyrpc.registry.RegistryServiceFactory;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -26,6 +27,7 @@ public class RpcProviderAutoConfiguration {
     @Bean
     public RpcServiceProvider rpcServiceProvider() {
         // todo 创建注册中心实例
-        return new RpcServiceProvider(rpcProperties.getServicePort(),null);
+        return new RpcServiceProvider(rpcProperties.getServicePort(),
+                                      RegistryServiceFactory.getInstance(rpcProperties));
     }
 }

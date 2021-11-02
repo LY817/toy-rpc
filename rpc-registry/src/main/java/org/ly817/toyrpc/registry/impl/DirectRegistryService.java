@@ -39,7 +39,7 @@ public class DirectRegistryService implements RegistryService {
 
     /**
      * 获取服务实例
-     * 从springboot配置中读取
+     * 从springboot配置中读取注册表
      *
      * @param serviceName
      * @param invokerHashCode
@@ -59,5 +59,15 @@ public class DirectRegistryService implements RegistryService {
     @Override
     public String registryType() {
         return "DIRECT";
+    }
+
+    /**
+     * 初始化
+     * 从注册中心拉取数据到本地缓存 RegistryLocalCache
+     * 启动维护（定时刷新）本地缓存的轮训任务
+     */
+    @Override
+    public void init() {
+
     }
 }

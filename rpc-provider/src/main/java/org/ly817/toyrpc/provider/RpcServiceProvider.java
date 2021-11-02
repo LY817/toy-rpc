@@ -43,17 +43,17 @@ public class RpcServiceProvider implements InitializingBean, BeanPostProcessor {
 
     /**
      * 启动netty网络服务的入口
-     * @throws Exception
      */
     @Override
     public void afterPropertiesSet() throws Exception {
         this.serverAddress = InetAddress.getLocalHost().getHostAddress();
         log.info("test");
+        startRpcServer();
     }
 
     /**
      * 启动netty服务
-     * @throws Exception
+     * 启动子线程启动netty服务，避免阻塞springboot启动过程
      */
     private void startRpcServer() throws Exception {
 
